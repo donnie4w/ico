@@ -23,6 +23,6 @@ This is a Go-implemented library designed for encoding images into the ICO forma
    ico.Encode(&buff, img, nil)
 
    // Encode an ICO image with multiple images at specified sizes
-   // Sizes: 16 pixels by 16 pixels, 32 pixels by 32 pixels, and the original image's size (three sizes altogether)
+   // Sizes: 16x16 pixels, 32x32 pixels, and the original image's size (three sizes altogether)
    ico.Encode(&buff, img, &ico.Options{[][2]uint8{{16, 16}, {32, 32}}})
    ```
