@@ -15,7 +15,6 @@ import (
 	"math"
 
 	"github.com/disintegration/imaging"
-	"github.com/donnie4w/gofer/buffer"
 )
 
 type icoHeader struct {
@@ -79,7 +78,7 @@ func Encode(w io.Writer, img image.Image, options *Options) (err error) {
 	}
 
 	Offset := uint32(header.Size() + len(options.Thumbnails)*icoEntry{}.Size())
-	dataBuf := buffer.NewBuffer()
+	var dataBuf bytes.Buffer
 	for _, thumbnails := range options.Thumbnails {
 		imageData := getImageByThumbnails(img, thumbnails)
 		dataBuf.Write(imageData)
