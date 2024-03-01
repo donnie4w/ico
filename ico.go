@@ -42,8 +42,9 @@ func (e icoEntry) Size() int {
 	return 16
 }
 
+// encoding parameters
 type Options struct {
-	Thumbnails [][2]uint8
+	Thumbnails [][2]uint8  //specifications for multiple images. eg, {64,64} means 64x64 pixel 
 }
 
 func Encode(w io.Writer, img image.Image, options *Options) (err error) {
