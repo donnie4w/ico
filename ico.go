@@ -70,10 +70,9 @@ func Encode(w io.Writer, img image.Image, options *Options) (err error) {
 
 	options.Thumbnails = append(options.Thumbnails, [][2]uint8{{newWidth, newHeight}}...)
 
-	var buf bytes.Buffer
 	header := icoHeader{[2]byte{0x00, 0x00}, [2]byte{0x01, 0x00}, uint16(len(options.Thumbnails))}
 
-	if err = binary.Write(&buf, binary.LittleEndian, header); err != nil {
+	if err = binary.Write(w, binary.LittleEndian, header); err != nil {
 		return
 	}
 
@@ -93,12 +92,11 @@ func Encode(w io.Writer, img image.Image, options *Options) (err error) {
 			Offset:       Offset,
 		}
 		Offset += uint32(len(imageData))
-		if err = binary.Write(&buf, binary.LittleEndian, entry); err != nil {
+		if err = binary.Write(w, binary.LittleEndian, entry); err != nil {
 			return
 		}
 	}
-	buf.Write(dataBuf.Bytes())
-	w.Write(buf.Bytes())
+	w.Write(dataBuf.Bytes())
 	return
 }
 
